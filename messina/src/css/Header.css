@@ -1,0 +1,157 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  background: linear-gradient(to bottom, #005598, #00355e);
+  flex-wrap: wrap;
+  font-family: "Montserrat", sans-serif;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  height: 70px;
+}
+
+
+
+.header-icons {
+  display: flex;
+  gap: 10px;
+
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  color: white;
+  font-size: 18px;
+}
+
+.icon.blue {
+  background-color: #1a4b84;
+
+}
+
+.icon.blue:hover {
+  background: linear-gradient(to bottom, #005598, #005598);
+  /* nuevo degradado */
+  color: #fff;
+  transform: scale(1.05);
+}
+
+
+
+
+/*/////////////////////////*/
+/* Buscador */
+/* ===== CONTENEDOR DEL BUSCADOR ===== */
+
+.search-container {
+  width: 100%;
+  background: #00355e;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 15px 50px;
+  /* igual que el header */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+/* ===== BUSCADOR ===== */
+.nav-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-search input {
+  background-color: #e9ecee;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  outline: none;
+  width: 250px;
+}
+
+.nav-icon {
+  font-size: 24px;
+  cursor: pointer;
+
+}
+
+.nav-icon.orange {
+  color: #ffffff;
+  background: none;
+  padding: 4px;
+  border-radius: 8px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.nav-icon.orange:hover {
+  transform: scale(1.15);
+}
+
+
+
+/* ====== RESPONSIVE ====== */
+.menu-toggle {
+  display: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+@media (max-width: 850px) {
+  .header {
+    padding: 15px 20px;
+  }
+
+  .navbar {
+    padding: 10px 20px;
+  }
+
+  .nav-content {
+    flex-wrap: wrap;
+  }
+
+  .menu-toggle {
+    display: block;
+    color: white;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #005598;
+    padding: 10px 0;
+    margin-top: 10px;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li .link {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .nav-search {
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+
+  }
+}

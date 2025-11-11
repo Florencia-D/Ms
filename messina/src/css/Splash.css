@@ -1,0 +1,48 @@
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #005598, #00355e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  pointer-events: none;
+
+  /* animación fade + blur */
+  animation: fadeBlur 0.8s ease-in-out 1.5s forwards;
+}
+
+.splash-logo {
+  width: 200px;
+  height: auto;
+  animation: expand 1.5s ease-in-out forwards;
+}
+
+/* Animación de expansión del logo */
+@keyframes expand {
+  0% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Fade out + blur sobre la página */
+@keyframes fadeBlur {
+  0% {
+    opacity: 1;
+    backdrop-filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    backdrop-filter: blur(8px); /* difumina mientras desaparece */
+    visibility: hidden;
+  }
+}
