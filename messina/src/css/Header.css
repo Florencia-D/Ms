@@ -101,6 +101,43 @@
 .nav-icon.orange:hover {
   transform: scale(1.15);
 }
+.user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  z-index: 10;
+}
+
+.logout-btn {
+  background-color: #ff6600;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.logout-btn:hover {
+  background-color: #e05500;
+}
+
+.user-name {
+  margin: 0 0 8px 0;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+}
 
 
 

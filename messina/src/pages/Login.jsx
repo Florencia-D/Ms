@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../css/Login.css";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  // Redirige al inicio
+ // Redirige al inicio
   const handleGoHome = () => navigate("/");
 
   // Redirige al registro
   const handleGoRegister = () => navigate("/registro");
 
-  // Envia los datos ingresados al backend
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -23,10 +25,7 @@ const Login = () => {
       const response = await fetch("http://localhost:8000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          Email: email,
-          Contrasenia: password,
-        }),
+        body: JSON.stringify({ Email: email, Contrasenia: password }),
       });
 
       const data = await response.json();
@@ -36,11 +35,16 @@ const Login = () => {
         return;
       }
 
-      alert("✅ Inicio de sesión exitoso");
-      // guardar datos en localStorage si querés mantener la sesión
-      localStorage.setItem("usuario", JSON.stringify(data.usuario));
+      //  Guardar usuario y token en el contexto
+      login({
+        id: data.user.id_usuario,
+        nombre: data.user.Nombre,
+        email: data.user.Email,
+        token: data.token,
+      });
 
-      navigate("/"); // Redirige al inicio
+      alert("Inicio de sesión exitoso");
+      navigate("/");
     } catch (error) {
       console.error("Error al conectar con el servidor:", error);
       setError("Error del servidor. Intenta nuevamente más tarde.");
@@ -70,9 +74,7 @@ const Login = () => {
           />
 
           {error && <span className="error-message">{error}</span>}
-
           <input className="login-button" type="submit" value="Iniciar Sesión" />
-
           <button
             type="button"
             className="login-button"
@@ -80,9 +82,10 @@ const Login = () => {
           >
             Registrarme
           </button>
+
         </form>
 
-        <button className="go-home-button" onClick={handleGoHome}>
+         <button className="go-home-button" onClick={handleGoHome}>
           Volver al Inicio
         </button>
       </div>
