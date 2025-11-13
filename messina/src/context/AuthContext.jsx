@@ -7,6 +7,12 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [usuario, setUsuario] = useState(null);
 
+  // 🔹 Modal de recuperación y reset de contraseña
+  const [showRecupero, setShowRecupero] = useState(false);
+  
+  const [showReset, setShowReset] = useState(false);
+  const [resetToken, setResetToken] = useState("");
+
   // Cargar usuario desde localStorage si existe
   useEffect(() => {
     try {
@@ -32,8 +38,35 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("usuario");
   };
 
+  // 🔹 Funciones para modales
+
+const openRecuperoModal = () => setShowRecupero(true);
+const closeRecuperoModal = () => setShowRecupero(false);
+
+  const openResetModal = (token) => {
+    setResetToken(token);
+    setShowReset(true);
+  };
+  const closeResetModal = () => {
+    setResetToken("");
+    setShowReset(false);
+  };
+
   return (
-    <AuthContext.Provider value={{ usuario, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        usuario,
+        login,
+        logout,
+        showRecupero,
+        openRecuperoModal,
+        closeRecuperoModal,
+        showReset,
+        openResetModal,
+        closeResetModal,
+        resetToken,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,21 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../css/NavBar.css";
 import { Link } from "react-router-dom";
-import {
-  FiHome,
-  FiBox,
-  FiTool,
-  FiMessageCircle,
-  FiPhone,
-} from "react-icons/fi";
-import {
-  home,
-  productos,
-  servicioTecnico,
-  login,
-  contacto,
-  asesoramiento,
-} from "../routes/path.js";
+import {FiHome,FiBox,FiTool,FiMessageCircle,FiPhone,} from "react-icons/fi";
+import {home,productos,servicioTecnico,login,contacto,asesoramiento,} from "../routes/path.js";
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);

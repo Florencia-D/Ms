@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import pool from "./src/config/db.js";
+import 'dotenv/config';
 
 // Importar las rutas
 import usuariosRoutes from "./src/routes/usuariosRoutes.js";
@@ -26,6 +27,9 @@ app.use("/api", usuariosRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api", productosRoutes); 
 
+
 // Iniciar servidor
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => console.log(`🚀 Servidor corriendo en puerto ${PORT}`));
+app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
+
+
