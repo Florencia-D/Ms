@@ -1,13 +1,13 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
-// 🔹 1️⃣ Creamos el contexto
+// Creamos el contexto
 export const AuthContext = createContext();
 
-// 🔹 2️⃣ Componente Provider
+//  Componente Provider
 export const AuthProvider = ({ children }) => {
   const [usuario, setUsuario] = useState(null);
 
-  // 🔹 Modal de recuperación y reset de contraseña
+  // Modal de recuperación y reset de contraseña
   const [showRecupero, setShowRecupero] = useState(false);
   
   const [showReset, setShowReset] = useState(false);
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("usuario");
   };
 
-  // 🔹 Funciones para modales
+  //  Funciones para modales
 
 const openRecuperoModal = () => setShowRecupero(true);
 const closeRecuperoModal = () => setShowRecupero(false);
@@ -72,5 +72,5 @@ const closeRecuperoModal = () => setShowRecupero(false);
   );
 };
 
-// 🔹 3️⃣ Hook personalizado
+//  Hook personalizado
 export const useAuth = () => useContext(AuthContext);

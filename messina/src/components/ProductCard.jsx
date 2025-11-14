@@ -1,15 +1,15 @@
 // src/components/ProductCard.jsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { CheckCircle2 } from "lucide-react"; // ✅ iconito de éxito
+import { CheckCircle2 } from "lucide-react"; // 
 
 const FALLBACK = "/img/placeholder-300x200.png";
 
 const normalizeImg = (raw) => {
   if (!raw) return FALLBACK;
   const s = String(raw).trim();
-  if (s.startsWith("http")) return s; // URL absoluta
-  return s.startsWith("/") ? s : `/${s}`; // relativa desde /public
+  if (s.startsWith("http")) return s; 
+  return s.startsWith("/") ? s : `/${s}`; 
 };
 
 export default function ProductCard({
@@ -114,7 +114,7 @@ export default function ProductCard({
           </div>
         </div>
 
-        {/* Botón agregar al carrito */}
+        {/* Boton agregar al carrito */}
         <button type="button" onClick={handleAdd} className={buttonClasses}>
           {added ? "Agregado al carrito ✔" : "Agregar al carrito"}
         </button>

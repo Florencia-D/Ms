@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import '../css/Splash.css'; // archivo de estilos
+import '../css/Splash.css'; 
 
 const SplashScreen = ({ onFinish }) => {
   useEffect(() => {
   const timer = setTimeout(() => {
     onFinish();
-  }, 1500); // 1.5s + 0.8s de fadeOut ≈ 2.3s
+  }, 1500); 
   return () => clearTimeout(timer);
 }, [onFinish]);
 

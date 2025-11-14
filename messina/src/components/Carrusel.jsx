@@ -54,14 +54,14 @@ const Carrusel = () => {
             <div className="marquee_header">MARCAS QUE CONFIAN EN NOSOTROS </div>
 
             <div className="marquee__inner">
-                {/* 2️⃣ Primer grupo de imágenes */}
+                {/*Primer grupo de imágenes */}
                 <div className="marquee__group">
                     {marcas.map((img, i) => (
                         <img key={i} src={img} alt={`Marca ${i + 1}`} />
                     ))}
                 </div>
 
-                {/* 3️⃣ Segundo grupo (duplicado para crear efecto infinito) */}
+                {/* duplicado para crear efecto infinito */}
                 <div className="marquee__group">
                     {marcas.map((img, i) => (
                         <img key={`dup-${i}`} src={img} alt={`Marca ${i + 1}`} />

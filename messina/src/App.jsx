@@ -9,20 +9,19 @@ import Serviciotec from "./pages/Serviciotec";
 import Asesoramiento from "./pages/Asesoramiento";
 import Contacto from "./pages/Contacto";
 import QuienesSomos from "./pages/QuienesSomos";
-// import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Cart from "./pages/Cart";               // 👈 importante
+import Cart from "./pages/Cart";               
 import ProductDetail from "./pages/ProductDetail";
 import SplashScreen from "./components/SplashScreen";
 import BotonWp from "./components/BotonWp";
-import BotonCart from "./components/BotonCart"; // 👈 nuevo
+import BotonCart from "./components/BotonCart"; 
 
 
 
 import { home, asesoramiento, servicioTecnico, productCard, register, productDetail, productos, contacto, quienesSomos } from "./routes/path";
 
 
-// 🔹 Importamos contexto y modales
+// Importamos contexto y modales
 import { AuthProvider, AuthContext } from "./context/AuthContext";
 import RecuperoContraseña from "./components/RecuperoContraseña";
 import ResetContraseña from "./components/ResetContraseña";
@@ -37,7 +36,6 @@ function AppContent() {
         <SplashScreen onFinish={() => setShowSplash(false)} />
       ) : (
         <Router>
-          {/* Tus rutas */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/productos" element={<Productos />} />
@@ -45,7 +43,6 @@ function AppContent() {
             <Route path="/asesoramiento" element={<Asesoramiento />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/quienesSomos" element={<QuienesSomos />} />
-            {/* <Route path="/login" element={<Login />} /> */}
             <Route path="/registro" element={<Register />} />
             <Route path="/producto/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
@@ -54,7 +51,7 @@ function AppContent() {
           {/* Botones flotantes */}
           <BotonWp />
 
-          {/* 🔹 Modales globales */}
+          {/* Modales globales */}
           {showRecupero && <RecuperoContraseña onClose={closeRecuperoModal} />}
           {showReset && <ResetContraseña token={resetToken} onClose={closeResetModal} />}
         </Router>

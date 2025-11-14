@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../css/Login.css"; // reutiliza el estilo
+import "../css/Login.css"; 
 
 const RecuperoContraseña = ({ onClose }) => {
   const [email, setEmail] = useState("");

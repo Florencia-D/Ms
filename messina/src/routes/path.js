@@ -3,7 +3,7 @@ export const register ="/registro"
 export const login ="/login"
 
 export const contacto ="/contacto"
-export const servicioTecnico ="/servicioTec"//cambiado
+export const servicioTecnico ="/servicioTec"
 export const productos ="/productos"
 export const quienesSomos ="/quienesSomos"
 export const asesoramiento ="/asesoramiento"

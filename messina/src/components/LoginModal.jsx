@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; // 🔹 Usamos el hook personalizado
+import { useAuth } from "../context/AuthContext"; 
 import "../css/Login.css";
 
 const LoginModal = ({ onClose, onGoRegister }) => {
   const navigate = useNavigate();
-  const { login, openRecuperoModal } = useAuth(); // 🔹 Contexto
+  const { login, openRecuperoModal } = useAuth(); //  Contexto
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -85,7 +85,7 @@ const LoginModal = ({ onClose, onGoRegister }) => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            {/* 🔗 Enlace "¿Olvidaste tu contraseña?" */}
+            {/* "Olvidaste tu contraseña" */}
             <p className="forgot-password" onClick={handleForgotPassword}>
               ¿Olvidaste tu contraseña?
             </p>

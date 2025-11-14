@@ -8,9 +8,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
-// import CartSidebar from "./CartSidebar";
-
-
 
 
 
@@ -21,6 +18,7 @@ const Header = () => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showCart, setShowCart] = useState(false); // <-- Estado del carrito
   const navigate = useNavigate();
+
 
   const handleUserClick = () => {
     if (usuario) {
@@ -36,20 +34,13 @@ const Header = () => {
     navigate("/");
   };
 
-  const toggleCart = () => setShowCart(!showCart);
-
-  // Ejemplo de productos en el carrito
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: "Producto 1", price: 100, qty: 2 },
-    { id: 2, name: "Producto 2", price: 50, qty: 1 },
-  ]);
+ 
 
   return (
     <>
       <header className="header">
         <div className="logo-container">
           <Link to={home}>
-            {/* En Vite, si el logo está en public, usá /Logo2.png */}
             <img src="/Logo2.png" alt="Messina Logo" className="logo" />
           </Link>
         </div>
@@ -79,15 +70,15 @@ const Header = () => {
           </div>
 
           {/* Carrito */}
-          <FaShoppingCart
-            className="nav-icon orange"
-            style={{ cursor: "pointer" }}
-            onClick={toggleCart}
-          />
+          
+          <Link to={cart}>
+            <FaShoppingCart className="nav-icon orange" />
+          </Link>
         </div>
+        
       </div>
 
-      {/* 🟦 Modal de login */}
+      {/* Modal de login */}
       {showLoginModal && (
         <LoginModal
           onClose={() => setShowLoginModal(false)}
@@ -98,7 +89,7 @@ const Header = () => {
         />
       )}
 
-      {/* 🟩 Modal de registro */}
+      {/* modal de registro */}
       {showRegisterModal && (
         <RegisterModal
           onClose={() => setShowRegisterModal(false)}
@@ -109,11 +100,7 @@ const Header = () => {
         />
       )}
 
-      {/* 🟧 Sidebar del carrito
-      {showCart && (
-        <CartSidebar cartItems={cartItems} onClose={toggleCart} />
-      )}
-       */}
+          
     </>
   );
 };
