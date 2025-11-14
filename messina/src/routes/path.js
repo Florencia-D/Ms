@@ -6,3 +6,4 @@ export const servicioTecnico ="/servicioTec"//cambiado
 export const productos ="/productos"
 export const quienesSomos ="/quienesSomos"
 export const asesoramiento ="/asesoramiento"
+export const cart = "/cart"; 
