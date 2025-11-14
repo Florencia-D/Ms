@@ -7,6 +7,8 @@ import 'dotenv/config';
 import usuariosRoutes from "./src/routes/usuariosRoutes.js";
 import authRoutes from "./src/routes/authRoutes.js";
 import productosRoutes from "./src/routes/productosRoutes.js"; 
+import empleadosRoutes from "./src/routes/empleadosRoutes.js";
+
 
 const app = express();
 app.use(cors());
@@ -26,6 +28,7 @@ app.get("/", async (req, res) => {
 app.use("/api", usuariosRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api", productosRoutes); 
+app.use("/empleados", empleadosRoutes);
 
 
 // Iniciar servidor
