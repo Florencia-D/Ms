@@ -1,17 +1,28 @@
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ id, img, name, brand, model, sku, price, onAdd }) => {
+const FALLBACK = "/img/placeholder-300x200.png";
+
+const normalizeImg = (raw) => {
+  if (!raw) return "";
+  const s = String(raw).trim();
+  if (s.startsWith("http")) return s;        // URL absoluta (Cloudinary/S3/etc.)
+  return s.startsWith("/") ? s : `/${s}`;    // relativa desde /public
+};
+
+export default function ProductCard({
+  id, img, name, brand, model, sku, price, onAdd,
+}) {
+  const src = normalizeImg(img);
+
   return (
     <div className="bg-white rounded-2xl shadow hover:shadow-lg transition p-4 flex flex-col">
       <Link to={`/producto/${id}`} className="block">
         <img
-          src={img || "https://via.placeholder.com/300x200?text=Producto"}
-          alt={name}
-          className="w-full h-40 object-cover rounded-lg mb-3 bg-gray-100"
-          onError={(e) =>
-            (e.currentTarget.src =
-              "https://via.placeholder.com/300x200?text=Producto")
-          }
+          src={src || FALLBACK}
+          alt={name || "Producto"}
+          className="w-full h-40 object-contain rounded-lg mb-3 bg-gray-100"
+          onError={(e) => { e.currentTarget.src = FALLBACK; }}
+          crossOrigin="anonymous"
         />
       </Link>
 
@@ -22,7 +33,7 @@ const ProductCard = ({ id, img, name, brand, model, sku, price, onAdd }) => {
 
       <div className="mt-auto flex items-center justify-between">
         <span className="font-bold text-lg">
-          ${Number(price || 0).toLocaleString("es-AR")}
+          {Number(price || 0).toLocaleString("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 })}
         </span>
         <button
           onClick={onAdd}
@@ -33,6 +44,4 @@ const ProductCard = ({ id, img, name, brand, model, sku, price, onAdd }) => {
       </div>
     </div>
   );
-};
-
-export default ProductCard;
+}
