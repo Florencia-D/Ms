@@ -1,146 +1,494 @@
-import { useMemo, useState } from "react";
+// import { useEffect, useMemo, useState } from "react";
+// import { useCart } from "../../store/cart.store.js";
+// import ProductCard from "../ProductCard.jsx";
+// import { mockCategories } from "../../data/products.js";
+
+// const API_URL = "http://localhost:8000/api/productos";
+
+// const normalizeImg = (raw) => {
+//   if (!raw) return "";
+//   const s = String(raw).trim();
+//   if (s.startsWith("http")) return s;
+//   return s.startsWith("/") ? s : `/${s}`;
+// };
+
+// export default function MainProductos() {
+//   const { add } = useCart();
+
+//   const [products, setProducts] = useState([]);
+//   const [categories] = useState(mockCategories);
+//   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+//   const [search, setSearch] = useState("");
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState("");
+
+//   useEffect(() => {
+//     const fetchProducts = async () => {
+//       try {
+//         setLoading(true);
+//         setError("");
+
+//         const res = await fetch(API_URL);
+//         if (!res.ok) throw new Error("No se pudieron cargar los productos.");
+
+//         const data = await res.json();
+//         const list = Array.isArray(data)
+//           ? data
+//           : data.productos ?? data.products ?? [];
+
+//         const normalized = list.map((p) => ({
+//           id: Number(p.id_producto ?? p.id ?? p.ID ?? 0),
+//           name: p.nombre ?? p.Nombre_producto ?? p.name ?? "",
+//           brand: p.marca ?? p.Marca ?? p.brand ?? "",
+//           model: p.modelo ?? p.Modelo ?? p.model ?? "",
+//           sku: p.sku ?? p.N_serie ?? "",
+//           img: normalizeImg(p.imagen ?? p.Imagen ?? p.img ?? ""),
+//           price: Number(p.precio ?? p.Precio ?? p.price ?? 0),
+//           desc: p.descripcion ?? p.Descripcion ?? p.desc ?? "",
+//           categoryId: p.id_categoria ?? p.categoryId ?? null,
+//         }));
+
+//         setProducts(normalized);
+//       } catch (err) {
+//         console.error(err);
+//         setError(err.message || "Error al cargar productos.");
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchProducts();
+//   }, []);
+
+//   const filtered = useMemo(() => {
+//     const q = search.toLowerCase();
+//     return products.filter((p) => {
+//       const matchesText =
+//         !q ||
+//         p.name?.toLowerCase().includes(q) ||
+//         p.brand?.toLowerCase().includes(q) ||
+//         p.model?.toLowerCase().includes(q) ||
+//         p.sku?.toLowerCase().includes(q);
+
+//       const matchesCategory =
+//         !selectedCategoryId || p.categoryId === selectedCategoryId;
+//       return matchesText && matchesCategory;
+//     });
+//   }, [search, products, selectedCategoryId]);
+
+//   const currentCategory = useMemo(() => {
+//     if (!selectedCategoryId) return null;
+//     return categories.find((c) => c.id === selectedCategoryId) || null;
+//   }, [selectedCategoryId, categories]);
+
+//   // Loading
+//   if (loading) {
+//     return (
+//       <div className="max-w-6xl mx-auto px-4 py-10">
+//         <header className="mb-8 text-center">
+//           <p className="text-xs tracking-[0.35em] uppercase text-[#4E5A62]">
+//             Productos {currentCategory ? ` / ${currentCategory.name}` : ""}
+//           </p>
+//           <h1 className="mt-2 text-3xl md:text-4xl font-bold text-[#005598]">
+//             {currentCategory
+//               ? currentCategory.name.toUpperCase()
+//               : "NUESTROS PRODUCTOS"}
+//           </h1>
+//         </header>
+//         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+//           {Array.from({ length: 8 }).map((_, i) => (
+//             <div
+//               key={i}
+//               className="bg-white rounded-2xl shadow animate-pulse h-40"
+//             />
+//           ))}
+//         </div>
+//       </div>
+//     );
+//   }
+
+//   // Error
+//   if (error) {
+//     return (
+//       <div className="max-w-6xl mx-auto px-4 py-10">
+//         <header className="mb-8 text-center">
+//           <p className="text-xs tracking-[0.35em] uppercase text-[#4E5A62]">
+//             Productos
+//           </p>
+//           <h1 className="mt-2 text-3xl md:text-4xl font-bold text-[#005598]">
+//             NUESTROS PRODUCTOS
+//           </h1>
+//         </header>
+//         <div className="bg-red-50 text-red-800 rounded-2xl px-4 py-3 text-center">
+//           {error}
+//         </div>
+//       </div>
+//     );
+//   }
+
+//   // Normal
+//   return (
+//     <div className="max-w-6xl mx-auto px-4 py-10">
+//       <header className="mb-8 text-center">
+//         <p className="text-xs tracking-[0.35em] uppercase text-[#4E5A62]">
+//           Productos {currentCategory ? ` / ${currentCategory.name}` : ""}
+//         </p>
+//         <h1 className="mt-2 text-3xl md:text-4xl font-bold text-[#005598]">
+//           {currentCategory
+//             ? currentCategory.name.toUpperCase()
+//             : "NUESTROS PRODUCTOS"}
+//         </h1>
+//       </header>
+
+//       <div className="flex flex-col md:flex-row gap-8">
+//         {/* Sidebar */}
+//         <aside className="md:w-64">
+//           <div className="bg-white rounded-2xl shadow border border-[#A9ABAE]/40 p-6">
+//             <h2 className="text-sm font-semibold tracking-[0.25em] uppercase text-[#4E5A62]">
+//               Filtrar por
+//             </h2>
+//             <div className="mt-4 space-y-1">
+//               <button
+//                 type="button"
+//                 onClick={() => setSelectedCategoryId(null)}
+//                 className={`w-full text-left text-sm px-3 py-2 rounded-lg transition ${
+//                   !selectedCategoryId
+//                     ? "bg-[#005598] text-white font-semibold"
+//                     : "text-[#201E1E] hover:bg-[#F1EEEA]"
+//                 }`}
+//               >
+//                 Todos
+//               </button>
+//               {categories.map((cat) => (
+//                 <button
+//                   key={cat.id}
+//                   type="button"
+//                   onClick={() => setSelectedCategoryId(cat.id)}
+//                   className={`w-full flex items-center gap-2 text-left text-sm px-3 py-2 rounded-lg transition ${
+//                     selectedCategoryId === cat.id
+//                       ? "bg-[#005598] text-white font-semibold"
+//                       : "text-[#4E5A62] hover:bg-[#F1EEEA]"
+//                   }`}
+//                 >
+//                   {cat.img && (
+//                     <img
+//                       src={cat.img}
+//                       alt={cat.name}
+//                       className="w-6 h-6 object-contain"
+//                     />
+//                   )}
+//                   <span>{cat.name}</span>
+//                 </button>
+//               ))}
+//             </div>
+//           </div>
+//         </aside>
+
+//         {/* Grid */}
+//         <section className="flex-1">
+//           <div className="mb-4 flex justify-end">
+//             <input
+//               type="text"
+//               value={search}
+//               onChange={(e) => setSearch(e.target.value)}
+//               placeholder="Buscar producto…"
+//               className="w-full md:w-80 border border-[#A9ABAE]/70 rounded-full px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-[#005598]"
+//             />
+//           </div>
+
+//           {filtered.length === 0 ? (
+//             <div className="bg-white rounded-2xl shadow p-8 text-center opacity-80">
+//               No se encontraron productos.
+//             </div>
+//           ) : (
+//             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+//               {filtered.map((p) => (
+//                 <ProductCard
+//                   key={p.id}
+//                   id={p.id}
+//                   name={p.name}
+//                   brand={p.brand}
+//                   model={p.model}
+//                   price={p.price}
+//                   sku={p.sku}
+//                   img={p.img}
+//                   desc={p.desc}
+//                   onAdd={add} // 👈 dejamos que el card le mande { ... , quantity }
+//                 />
+//               ))}
+//             </div>
+//           )}
+//         </section>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+// src/components/main/MainProductos.jsx
+import { useEffect, useMemo, useState } from "react";
+import { Filter, PackageSearch } from "lucide-react";
 import { useCart } from "../../store/cart.store.js";
 import ProductCard from "../ProductCard.jsx";
-import { mockProducts, mockCategories } from "../../data/products.js";
+import { mockCategories } from "../../data/products.js";
 
-const MainProductos = () => {
-    const { add } = useCart();
-   const [products] = useState(mockProducts);
-   const [categories] = useState(mockCategories);
-   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-   const [search, setSearch] = useState("");
- 
-   // Filtro combinado texto + categoría
-   const filtered = useMemo(() => {
-     const q = search.toLowerCase();
- 
-     return products.filter((p) => {
-       const matchesText =
-         !q ||
-         p.name?.toLowerCase().includes(q) ||
-         p.brand?.toLowerCase().includes(q) ||
-         p.model?.toLowerCase().includes(q) ||
-         p.sku?.toLowerCase().includes(q);
- 
-       const matchesCategory =
-         !selectedCategoryId || p.categoryId === selectedCategoryId;
- 
-       return matchesText && matchesCategory;
-     });
-   }, [search, products, selectedCategoryId]);
- 
-   const currentCategory = useMemo(() => {
-     if (!selectedCategoryId) return null;
-     return categories.find((c) => c.id === selectedCategoryId) || null;
-   }, [selectedCategoryId, categories]);
- 
-   return (
-     <div className="max-w-6xl mx-auto px-4 py-10">
-       {/* TÍTULO tipo Figma */}
-       <header className="mb-8 text-center">
-         <p className="text-xs tracking-[0.35em] uppercase text-[#4E5A62]">
-           Productos {currentCategory ? ` / ${currentCategory.name}` : ""}
-         </p>
-         <h1 className="mt-2 text-3xl md:text-4xl font-bold text-[#005598]">
-           {currentCategory
-             ? currentCategory.name.toUpperCase()
-             : "NUESTROS PRODUCTOS"}
-         </h1>
-       </header>
- 
-       <div className="flex flex-col md:flex-row gap-8">
-         {/* Sidebar FILTRAR POR */}
-         <aside className="md:w-64">
-           <div className="bg-white rounded-2xl shadow border border-[#A9ABAE]/40 p-6">
-             <h2 className="text-sm font-semibold tracking-[0.25em] uppercase text-[#4E5A62]">
-               Filtrar por
-             </h2>
- 
-             <div className="mt-4 space-y-1">
-               <button
-                 type="button"
-                 onClick={() => setSelectedCategoryId(null)}
-                 className={`w-full text-left text-sm px-3 py-2 rounded-lg transition ${
-                   !selectedCategoryId
-                     ? "bg-[#005598] text-white font-semibold"
-                     : "text-[#201E1E] hover:bg-[#F1EEEA]"
-                 }`}
-               >
-                 Todos
-               </button>
- 
-               {categories.map((cat) => (
-                 <button
-                   key={cat.id}
-                   type="button"
-                   onClick={() => setSelectedCategoryId(cat.id)}
-                   className={`w-full flex items-center gap-2 text-left text-sm px-3 py-2 rounded-lg transition ${
-                     selectedCategoryId === cat.id
-                       ? "bg-[#005598] text-white font-semibold"
-                       : "text-[#4E5A62] hover:bg-[#F1EEEA]"
-                   }`}
-                 >
-                   {cat.img && (
-                     <img
-                       src={cat.img}
-                       alt={cat.name}
-                       className="w-6 h-6 object-contain"
-                     />
-                   )}
-                   <span>{cat.name}</span>
-                 </button>
-               ))}
-             </div>
-           </div>
-         </aside>
- 
-         {/* Contenido principal */}
-         <section className="flex-1">
-           {/* Buscador arriba a la derecha */}
-           <div className="mb-4 flex justify-end">
-             <input
-               type="text"
-               value={search}
-               onChange={(e) => setSearch(e.target.value)}
-               placeholder="Buscar producto…"
-               className="w-full md:w-80 border border-[#A9ABAE]/70 rounded-full px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-[#005598]"
-             />
-           </div>
- 
-           {filtered.length === 0 ? (
-             <div className="bg-white rounded-2xl shadow p-8 text-center opacity-80">
-               No se encontraron productos.
-             </div>
-           ) : (
-             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-               {filtered.map((p) => (
-                 <ProductCard
-                   key={p.id}
-                   id={p.id}
-                   name={p.name}
-                   brand={p.brand}
-                   model={p.model}
-                   price={p.price}
-                   sku={p.sku}
-                   img={p.img}
-                   desc={p.desc}
-                   onAdd={() =>
-                     add({
-                       id: p.id,
-                       name: p.name,
-                       price: p.price,
-                       img: p.img,
-                       sku: p.sku,
-                     })
-                   }
-                 />
-               ))}
-             </div>
-           )}
-         </section>
-       </div>
-     </div>
-  )
+const API_URL = "http://localhost:8000/api/productos";
+
+const normalizeImg = (raw) => {
+  if (!raw) return "";
+  const s = String(raw).trim();
+  if (s.startsWith("http")) return s;
+  return s.startsWith("/") ? s : `/${s}`;
+};
+
+export default function MainProductos() {
+  const { add } = useCart();
+
+  const [products, setProducts] = useState([]);
+  const [categories] = useState(mockCategories);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // 🚀 Traer productos del backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error("No se pudieron cargar los productos.");
+
+        const data = await res.json();
+        const list = Array.isArray(data)
+          ? data
+          : data.productos ?? data.products ?? [];
+
+        const normalized = list.map((p) => ({
+          id: Number(p.id_producto ?? p.id ?? p.ID ?? 0),
+          name: p.nombre ?? p.Nombre_producto ?? p.name ?? "",
+          brand: p.marca ?? p.Marca ?? p.brand ?? "",
+          model: p.modelo ?? p.Modelo ?? p.model ?? "",
+          sku: p.sku ?? p.N_serie ?? "",
+          img: normalizeImg(p.imagen ?? p.Imagen ?? p.img ?? ""),
+          price: Number(p.precio ?? p.Precio ?? p.price ?? 0),
+          desc: p.descripcion ?? p.Descripcion ?? p.desc ?? "",
+          categoryId: p.id_categoria ?? p.categoryId ?? null,
+        }));
+
+        setProducts(normalized);
+      } catch (err) {
+        console.error(err);
+        setError(err.message || "Error al cargar productos.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  // 🔍 Filtro por texto + categoría
+  const filtered = useMemo(() => {
+    const q = search.toLowerCase();
+    return products.filter((p) => {
+      const matchesText =
+        !q ||
+        p.name?.toLowerCase().includes(q) ||
+        p.brand?.toLowerCase().includes(q) ||
+        p.model?.toLowerCase().includes(q) ||
+        p.sku?.toLowerCase().includes(q);
+
+      const matchesCategory =
+        !selectedCategoryId || p.categoryId === selectedCategoryId;
+
+      return matchesText && matchesCategory;
+    });
+  }, [search, products, selectedCategoryId]);
+
+  const currentCategory = useMemo(() => {
+    if (!selectedCategoryId) return null;
+    return categories.find((c) => c.id === selectedCategoryId) || null;
+  }, [selectedCategoryId, categories]);
+
+  /* 🧊 Loading */
+  if (loading) {
+    return (
+      <div className="bg-[#F4F5F7] min-h-[calc(100vh-96px)]">
+        <main className="max-w-6xl mx-auto px-4 py-10 space-y-8">
+          <HeaderProductos currentCategory={currentCategory} />
+
+          <section className="bg-white/80 rounded-2xl shadow-sm border border-[#E2E4EA] p-6">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="bg-gray-100/70 rounded-2xl h-56 animate-pulse"
+                />
+              ))}
+            </div>
+          </section>
+        </main>
+      </div>
+    );
+  }
+
+  /* 💥 Error */
+  if (error) {
+    return (
+      <div className="bg-[#F4F5F7] min-h-[calc(100vh-96px)]">
+        <main className="max-w-6xl mx-auto px-4 py-10 space-y-6">
+          <HeaderProductos currentCategory={currentCategory} />
+          <section className="bg-red-50 text-red-800 rounded-2xl px-4 py-3 text-center border border-red-200">
+            {error}
+          </section>
+        </main>
+      </div>
+    );
+  }
+
+  /* ✅ Vista normal */
+  return (
+    <div className="bg-[#F4F5F7] min-h-[calc(100vh-96px)]">
+      <main className="max-w-6xl mx-auto px-4 py-10 space-y-8">
+        <HeaderProductos currentCategory={currentCategory} />
+
+        {/* 🔹 Filtros de categoría (pills horizontales) */}
+        <section className="bg-white/80 backdrop-blur rounded-2xl shadow-sm border border-[#E2E4EA] px-4 py-4 md:px-6 md:py-5 flex flex-col gap-4">
+          <div className="flex items-center gap-2 text-sm text-[#4E5A62]">
+            <Filter className="w-4 h-4" />
+            <span className="font-semibold tracking-[0.18em] uppercase">
+              Filtrar por categoría
+            </span>
+          </div>
+
+          <div className="overflow-x-auto">
+            <div className="flex gap-2 pb-1 min-w-max">
+              <button
+                type="button"
+                onClick={() => setSelectedCategoryId(null)}
+                className={`px-4 py-2 rounded-full text-sm border transition-all duration-150 flex items-center gap-2 ${
+                  !selectedCategoryId
+                    ? "bg-[#005598] text-white border-[#005598] shadow-sm"
+                    : "bg-white text-[#4E5A62] border-[#D1D5DB] hover:bg-[#F3F4F6]"
+                }`}
+              >
+                Todos
+              </button>
+
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setSelectedCategoryId(cat.id)}
+                  className={`px-4 py-2 rounded-full text-sm border transition-all duration-150 flex items-center gap-2 ${
+                    selectedCategoryId === cat.id
+                      ? "bg-[#DF5438] text-white border-[#DF5438] shadow-sm"
+                      : "bg-white text-[#4E5A62] border-[#D1D5DB] hover:bg-[#F3F4F6]"
+                  }`}
+                >
+                  {cat.img && (
+                    <span className="inline-flex w-6 h-6 rounded-full overflow-hidden bg-[#F3F4F6]">
+                      <img
+                        src={cat.img}
+                        alt={cat.name}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
+                      />
+                    </span>
+                  )}
+                  <span>{cat.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 🔹 Resultados + buscador */}
+        <section className="bg-white rounded-2xl shadow-sm border border-[#E2E4EA] p-4 md:p-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <PackageSearch className="w-4 h-4" />
+              <span>
+                {filtered.length} producto
+                {filtered.length !== 1 && "s"} encontrados
+                {currentCategory ? ` en "${currentCategory.name}"` : ""}
+              </span>
+            </div>
+
+            <div className="relative w-full md:w-80">
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Buscar por nombre, marca o SKU…"
+                className="w-full border border-[#D1D5DB] rounded-full pl-4 pr-10 py-2 text-sm outline-none focus:ring-2 focus:ring-[#005598] focus:border-[#005598] bg-[#F9FAFB]"
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">
+                ⌕
+              </span>
+            </div>
+          </div>
+
+          {filtered.length === 0 ? (
+            <div className="bg-[#F9FAFB] rounded-2xl p-8 text-center text-gray-500">
+              No se encontraron productos para tu búsqueda.
+            </div>
+          ) : (
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {filtered.map((p) => (
+                <ProductCard
+                  key={p.id}
+                  id={p.id}
+                  name={p.name}
+                  brand={p.brand}
+                  model={p.model}
+                  price={p.price}
+                  sku={p.sku}
+                  img={p.img}
+                  desc={p.desc}
+                  onAdd={(productFromCard) =>
+                    add(
+                      productFromCard || {
+                        id: p.id,
+                        name: p.name,
+                        price: p.price,
+                        img: p.img,
+                        sku: p.sku,
+                        quantity: 1,
+                      }
+                    )
+                  }
+                />
+              ))}
+            </div>
+          )}
+        </section>
+      </main>
+    </div>
+  );
 }
 
-export default MainProductos
+/* 🔹 Encabezado reutilizable */
+function HeaderProductos({ currentCategory }) {
+  return (
+    <header className="text-center space-y-2">
+      <p className="text-xs tracking-[0.35em] uppercase text-[#4E5A62]">
+        Productos {currentCategory ? ` / ${currentCategory.name}` : ""}
+      </p>
+      <h1 className="text-3xl md:text-4xl font-bold text-[#005598]">
+        {currentCategory
+          ? currentCategory.name.toUpperCase()
+          : "NUESTROS PRODUCTOS"}
+      </h1>
+      <p className="text-sm text-gray-500 max-w-2xl mx-auto">
+        Encontrá la solución ideal para tu negocio: controladores fiscales,
+        balanzas, software y todo lo que necesitás en un solo lugar.
+      </p>
+    </header>
+  );
+}

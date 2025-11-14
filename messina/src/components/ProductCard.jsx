@@ -1,38 +1,131 @@
+// src/components/ProductCard.jsx
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { CheckCircle2 } from "lucide-react"; // ✅ iconito de éxito
 
-const ProductCard = ({ id, img, name, brand, model, sku, price, onAdd }) => {
-  return (
-    <div className="bg-white rounded-2xl shadow hover:shadow-lg transition p-4 flex flex-col">
-      <Link to={`/producto/${id}`} className="block">
-        <img
-          src={img || "https://via.placeholder.com/300x200?text=Producto"}
-          alt={name}
-          className="w-full h-40 object-cover rounded-lg mb-3 bg-gray-100"
-          onError={(e) =>
-            (e.currentTarget.src =
-              "https://via.placeholder.com/300x200?text=Producto")
-          }
-        />
-      </Link>
+const FALLBACK = "/img/placeholder-300x200.png";
 
-      <h2 className="font-semibold text-[#005598]">{name}</h2>
-      <p className="text-sm opacity-70 mb-2">
-        {brand} {model} {sku ? `• ${sku}` : ""}
-      </p>
-
-      <div className="mt-auto flex items-center justify-between">
-        <span className="font-bold text-lg">
-          ${Number(price || 0).toLocaleString("es-AR")}
-        </span>
-        <button
-          onClick={onAdd}
-          className="bg-[#005598] text-white px-3 py-1 rounded-xl hover:bg-[#004178] transition text-sm"
-        >
-          Agregar
-        </button>
-      </div>
-    </div>
-  );
+const normalizeImg = (raw) => {
+  if (!raw) return FALLBACK;
+  const s = String(raw).trim();
+  if (s.startsWith("http")) return s; // URL absoluta
+  return s.startsWith("/") ? s : `/${s}`; // relativa desde /public
 };
 
-export default ProductCard;
+export default function ProductCard({
+  id,
+  img,
+  name,
+  brand,
+  model,
+  sku,
+  price,
+  onAdd,
+}) {
+  const [qty, setQty] = useState(1);
+  const [added, setAdded] = useState(false);
+
+  const src = normalizeImg(img);
+
+  const handleAdd = () => {
+    const product = {
+      id,
+      img: src,
+      name,
+      brand,
+      model,
+      sku,
+      price,
+      quantity: qty,
+    };
+
+    if (onAdd) onAdd(product);
+
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
+  };
+
+  const increase = () => setQty((q) => Math.min(99, q + 1));
+  const decrease = () => setQty((q) => Math.max(1, q - 1));
+
+  const buttonClasses = added
+    ? "mt-auto w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-2.5 rounded-full text-sm transition transform scale-[1.03] shadow-lg"
+    : "mt-auto w-full bg-[#DF5438] hover:bg-[#c7472e] text-white font-semibold py-2.5 rounded-full text-sm transition";
+
+  return (
+    <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:-translate-y-1 hover:shadow-md transition">
+      {/* Imagen */}
+      <Link to={`/producto/${id}`} className="block">
+        <div className="w-full h-48 bg-gradient-to-b from-[#F8FAFC] to-[#E5EDF7] flex items-center justify-center">
+          <img
+            src={src}
+            alt={name}
+            className="max-h-40 w-auto object-contain drop-shadow-sm"
+            onError={(e) => {
+              e.currentTarget.src = FALLBACK;
+            }}
+          />
+        </div>
+      </Link>
+
+      {/* Info */}
+      <div className="p-4 flex-1 flex flex-col">
+        <Link to={`/producto/${id}`}>
+          <h3 className="font-semibold text-[#333] mb-1 line-clamp-2">
+            {name}
+          </h3>
+        </Link>
+
+        {brand && (
+          <p className="text-sm text-gray-500">
+            {brand} {model && `· ${model}`}
+          </p>
+        )}
+
+        {sku && <p className="text-xs text-gray-400 mt-1">SKU: {sku}</p>}
+
+        <div className="mt-3 mb-2">
+          <p className="text-lg font-bold text-[#005598]">
+            ${price?.toLocaleString("es-AR")}
+          </p>
+        </div>
+
+        {/* Selector de cantidad */}
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-xs text-gray-500">Cantidad:</span>
+          <div className="flex items-center bg-gray-100 rounded-full px-2 py-1">
+            <button
+              type="button"
+              onClick={decrease}
+              className="w-6 h-6 flex items-center justify-center rounded-full text-gray-700 text-sm hover:bg-gray-200"
+            >
+              −
+            </button>
+            <span className="mx-3 w-6 text-center text-sm font-medium">
+              {qty}
+            </span>
+            <button
+              type="button"
+              onClick={increase}
+              className="w-6 h-6 flex items-center justify-center rounded-full text-gray-700 text-sm hover:bg-gray-200"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        {/* Botón agregar al carrito */}
+        <button type="button" onClick={handleAdd} className={buttonClasses}>
+          {added ? "Agregado al carrito ✔" : "Agregar al carrito"}
+        </button>
+
+        {added && (
+          <div className="mt-2 flex items-center justify-center gap-2 text-xs text-emerald-600 animate-pulse">
+            <CheckCircle2 className="w-4 h-4" />
+            <span>Producto agregado correctamente</span>
+          </div>
+        )}
+      </div>
+    </article>
+  );
+}
