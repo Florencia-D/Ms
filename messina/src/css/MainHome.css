@@ -1,7 +1,7 @@
 .main-home {
-  /* font-family: 'Nixie Uno '; */
- font-family: "Montserrat", sans-serif;
-}
+ font-family: 'Nixie Uno ';
+ font-family: "Montserrat", sans-serif; 
+ }
 
 /*-----------------------imagen deL fondo--------------------- */ 
 .hero {
@@ -299,4 +299,4 @@
   }
 }
 
-
+ 

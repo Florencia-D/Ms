@@ -1,7 +1,7 @@
 import "../css/Header.css";
 import { Link } from "react-router-dom";
 import NavBar from "./NavBar";
-import { home } from "../routes/path";
+import { home, login, cart } from "../routes/path";
 import { FaSearch, FaUser, FaShoppingCart } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
@@ -9,6 +9,10 @@ import { useNavigate } from "react-router-dom";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import CartSidebar from "./CartSidebar";
+import NavBar from "./NavBar";
+
+
+
 
 const Header = () => {
   const { usuario, logout } = useAuth();
@@ -45,7 +49,8 @@ const Header = () => {
       <header className="header">
         <div className="logo-container">
           <Link to={home}>
-            <img src="/public/Logo2.png" alt="Messina Logo" className="logo" />
+            {/* En Vite, si el logo está en public, usá /Logo2.png */}
+            <img src="/Logo2.png" alt="Messina Logo" className="logo" />
           </Link>
         </div>
         <NavBar />
@@ -108,6 +113,7 @@ const Header = () => {
       {showCart && (
         <CartSidebar cartItems={cartItems} onClose={toggleCart} />
       )}
+      
     </>
   );
 };
