@@ -58,7 +58,7 @@ export const mockProducts = [
     desc: "Controlador fiscal de nueva generación, ideal para comercios minoristas y mayoristas.",
     brand: "Hasar",
     model: "SMH/P-715",
-    img: "hasar-smh715.png",
+    img: "/hasar-smh715.png",
     sku: "CF-HSR-715-0001",
     price: 480000,
     categoryId: 1,
