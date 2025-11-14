@@ -8,8 +8,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
-import CartSidebar from "./CartSidebar";
-import NavBar from "./NavBar";
+// import CartSidebar from "./CartSidebar";
+
 
 
 
@@ -109,11 +109,11 @@ const Header = () => {
         />
       )}
 
-      {/* 🟧 Sidebar del carrito */}
+      {/* 🟧 Sidebar del carrito
       {showCart && (
         <CartSidebar cartItems={cartItems} onClose={toggleCart} />
       )}
-      
+       */}
     </>
   );
 };
