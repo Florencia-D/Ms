@@ -21,24 +21,23 @@ const Header = () => {
   const navigate = useNavigate();
   const menuRef = useRef(null);
 
+
   // Cerrar menú cuando se hace clic fuera
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setShowMenu(false);
-      }
+        setShowMenu(false);}
     };
-
     if (showMenu) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
+      document.addEventListener("mousedown", handleClickOutside); }
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
+
   }, [showMenu]);
 
 
+  
   const handleUserClick = () => {
     if (usuario) {
       setShowMenu(!showMenu);
@@ -46,6 +45,7 @@ const Header = () => {
       setShowLoginModal(true);
     }
   };
+
 
   const handleLogout = () => {
     logout();
@@ -66,23 +66,18 @@ const Header = () => {
         <NavBar />
       </header>
 
+
+
       <div className="search-container">
         <div className="nav-search">
-          {/* <input
-            type="text"
-            placeholder="Buscar producto"
-            onChange={(e) => onSearch && onSearch(e.target.value)}
-          />
-          
-          <FaSearch className="nav-icon orange" /> */}
-
           <div className="user-menu">
+
+
             <FaUser
               className="nav-icon orange"
               onClick={handleUserClick}
               style={{ cursor: "pointer" }}
             />
-
             {usuario && showMenu && (
               <div className="dropdown-menu" ref={menuRef}>
                 <p className="user-name">{usuario?.nombre || usuario?.Nombre || "Usuario"}</p>
@@ -91,18 +86,25 @@ const Header = () => {
                 </button>
               </div>
             )}
-
-
           </div>
 
-          {/* Carrito */}
 
-          <Link to={cart}>
-            <FaShoppingCart className="nav-icon orange" />
-          </Link>
+
+          <FaShoppingCart
+            className="nav-icon orange"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              if (!usuario) {
+                alert("Necesitas iniciar sesion para ver tu carrito");
+                setShowLoginModal(true); 
+                return;
+              }
+              navigate(cart); 
+            }}
+          />
         </div>
-
       </div>
+
 
       {/* Modal de login */}
       {showLoginModal && (
@@ -125,8 +127,6 @@ const Header = () => {
           }}
         />
       )}
-
-
     </>
   );
 };
