@@ -34,7 +34,7 @@ const Header = () => {
     navigate("/");
   };
 
- 
+
 
   return (
     <>
@@ -49,8 +49,13 @@ const Header = () => {
 
       <div className="search-container">
         <div className="nav-search">
-          <input type="text" placeholder="Buscar producto" />
-          <FaSearch className="nav-icon orange" />
+          {/* <input
+            type="text"
+            placeholder="Buscar producto"
+            onChange={(e) => onSearch && onSearch(e.target.value)}
+          />
+          
+          <FaSearch className="nav-icon orange" /> */}
 
           <div className="user-menu">
             <FaUser
@@ -70,12 +75,12 @@ const Header = () => {
           </div>
 
           {/* Carrito */}
-          
+
           <Link to={cart}>
             <FaShoppingCart className="nav-icon orange" />
           </Link>
         </div>
-        
+
       </div>
 
       {/* Modal de login */}
@@ -100,7 +105,7 @@ const Header = () => {
         />
       )}
 
-          
+
     </>
   );
 };

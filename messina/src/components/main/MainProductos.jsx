@@ -4,6 +4,11 @@ import { Filter, PackageSearch } from "lucide-react";
 import { useCart } from "../../store/cart.store.js";
 import ProductCard from "../ProductCard.jsx";
 import { mockCategories } from "../../data/products.js";
+import Header from "../Header";   // ruta según tu estructura
+
+
+
+
 
 const API_URL = "http://localhost:8000/api/productos";
 
@@ -63,9 +68,10 @@ export default function MainProductos() {
     fetchProducts();
   }, []);
 
-  // 🔍 Filtro por texto + categoría
+  //  Filtro por texto + categoría
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
+
     return products.filter((p) => {
       const matchesText =
         !q ||
@@ -86,7 +92,7 @@ export default function MainProductos() {
     return categories.find((c) => c.id === selectedCategoryId) || null;
   }, [selectedCategoryId, categories]);
 
-  /* 🧊 Loading */
+  /*  Loading */
   if (loading) {
     return (
       <div className="bg-[#F4F5F7] min-h-[calc(100vh-96px)]">
@@ -122,13 +128,22 @@ export default function MainProductos() {
     );
   }
 
-  /* ✅ Vista normal */
+
+
+
+
+  
+
+
+
+  /*  Vista normal */
+  
   return (
     <div className="bg-[#F4F5F7] min-h-[calc(100vh-96px)]">
       <main className="max-w-6xl mx-auto px-4 py-10 space-y-8">
         <HeaderProductos currentCategory={currentCategory} />
 
-        {/* 🔹 Filtros de categoría (pills horizontales) */}
+        {/* Filtros de categoría (pills horizontales) */}
         <section className="bg-white/80 backdrop-blur rounded-2xl shadow-sm border border-[#E2E4EA] px-4 py-4 md:px-6 md:py-5 flex flex-col gap-4">
           <div className="flex items-center gap-2 text-sm text-[#4E5A62]">
             <Filter className="w-4 h-4" />
