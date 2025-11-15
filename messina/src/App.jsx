@@ -25,6 +25,7 @@ import { home, asesoramiento, servicioTecnico, productCard, register, productDet
 import { AuthProvider, AuthContext } from "./context/AuthContext";
 import RecuperoContraseña from "./components/RecuperoContraseña";
 import ResetContraseña from "./components/ResetContraseña";
+import Header from './components/Header';
 
 function AppContent() {
   const { showRecupero, closeRecuperoModal, showReset, closeResetModal, resetToken } = useContext(AuthContext);
@@ -36,6 +37,7 @@ function AppContent() {
         <SplashScreen onFinish={() => setShowSplash(false)} />
       ) : (
         <Router>
+          <Header/>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/productos" element={<Productos />} />
@@ -50,6 +52,7 @@ function AppContent() {
 
           {/* Botones flotantes */}
           <BotonWp />
+          <BotonCart/>
 
           {/* Modales globales */}
           {showRecupero && <RecuperoContraseña onClose={closeRecuperoModal} />}

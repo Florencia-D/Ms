@@ -6,7 +6,7 @@ import MainQuieneSomos from '../components/main/MainQuienesSomos'
 const QuienesSomos = () => {
   return (
     <div>
-      <Header/>
+      {/* <Header/> */}
       <MainQuieneSomos/>
       <Footer/>
     </div>

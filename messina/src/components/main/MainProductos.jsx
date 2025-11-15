@@ -131,11 +131,6 @@ export default function MainProductos() {
 
 
 
-
-  
-
-
-
   /*  Vista normal */
   
   return (

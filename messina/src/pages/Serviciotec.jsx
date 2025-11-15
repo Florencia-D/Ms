@@ -6,7 +6,7 @@ import MainServicioTecnico from '../components/main/MainServicioTecnico'
 const Serviciotec = () => {
   return (
     <div>
-      <Header/>
+      {/* <Header/> */}
       <MainServicioTecnico/>
       <Footer/>
     </div>

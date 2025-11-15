@@ -7,7 +7,7 @@ import MainContacto from '../components/main/MainContacto'
 const Contacto = () => {
   return (
     <div>
-      <Header/>
+      {/* <Header/> */}
       <MainContacto/>
       <Footer/>
     </div>

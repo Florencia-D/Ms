@@ -6,7 +6,7 @@ import Footer from '../components/Footer'
 const Productos = () => {
   return (
     <div>
-      <Header/>
+      {/* <Header/> */}
       <MainProductos/>
       <Footer/>
     </div>

@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
+import { useRef, useEffect } from "react";
 
 
 
@@ -18,6 +19,24 @@ const Header = () => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showCart, setShowCart] = useState(false); // <-- Estado del carrito
   const navigate = useNavigate();
+  const menuRef = useRef(null);
+
+  // Cerrar menú cuando se hace clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    if (showMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showMenu]);
 
 
   const handleUserClick = () => {
@@ -65,13 +84,15 @@ const Header = () => {
             />
 
             {usuario && showMenu && (
-              <div className="dropdown-menu">
-                <p className="user-name">{usuario?.nombre || "Usuario"}</p>
+              <div className="dropdown-menu" ref={menuRef}>
+                <p className="user-name">{usuario?.nombre || usuario?.Nombre || "Usuario"}</p>
                 <button onClick={handleLogout} className="logout-btn">
                   Cerrar sesión
                 </button>
               </div>
             )}
+
+
           </div>
 
           {/* Carrito */}

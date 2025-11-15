@@ -6,26 +6,21 @@ import { Wrench, ShieldCheck, Headset, CircleDot } from "lucide-react";
 const MainServicioTecnico = () => {
   return (
     <div className="bg-[#F5F7FB] min-h-screen">
-      {}
+      
       <section className="relative">
         <img
           src="https://i.pinimg.com/1200x/ca/3f/d7/ca3fd7fa55348777251f1cd27ea2d834.jpg" 
           alt="Servicio técnico Messina"
           className="h-[300px] md:h-[380px] w-full object-cover"
         />
-
-        {}
+       
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-transparent" />
 
-        {}
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-6xl mx-auto px-4">
-            {}
             <span className="text-white/90 text-2xl md:text-5xl tracking-[0.25em] uppercase font-semibold text-center">
               SERVICIO TÉCNICO
             </span>
-
-            {}
             <h1 className="text-lg md:text-2xl font-semibold text-white mt-2 leading-snug">
               Atendemos tus necesidades técnicas con rapidez y garantía
             </h1>
@@ -39,9 +34,8 @@ const MainServicioTecnico = () => {
         </div>
       </section>
 
-      {}
+
       <main className="max-w-6xl mx-auto px-4 pb-16 -mt-10 space-y-12 relative z-10">
-        {}
         <section className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
           <h2 className="text-xl md:text-2xl font-bold text-[#005598] mb-2">
             Nuestros Servicios
