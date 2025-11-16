@@ -1,6 +1,6 @@
 import pool from "../config/db.js";
 
-// 📌 Obtener todos los empleados
+// Obtener todos los empleados
 export const obtenerEmpleados = async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM Empleados");
@@ -11,7 +11,7 @@ export const obtenerEmpleados = async (req, res) => {
   }
 };
 
-// 📌 Obtener empleado por ID
+// Obtener empleado por ID
 export const obtenerEmpleadoPorId = async (req, res) => {
   const { id } = req.params;
 
@@ -32,7 +32,7 @@ export const obtenerEmpleadoPorId = async (req, res) => {
   }
 };
 
-// 📌 Crear empleado
+// Crear empleado
 export const crearEmpleado = async (req, res) => {
   try {
     const {
@@ -65,7 +65,7 @@ export const crearEmpleado = async (req, res) => {
   }
 };
 
-// 📌 Actualizar empleado
+// Actualizar empleado
 export const actualizarEmpleado = async (req, res) => {
   const { id } = req.params;
 
@@ -113,7 +113,7 @@ export const actualizarEmpleado = async (req, res) => {
   }
 };
 
-// 📌 Eliminar empleado
+// Eliminar empleado
 export const eliminarEmpleado = async (req, res) => {
   const { id } = req.params;
 

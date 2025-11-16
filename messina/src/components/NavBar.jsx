@@ -22,7 +22,7 @@ const NavBar = () => {
 
   return (
     <>
-      {/* ===== NAV SUPERIOR ===== */}
+      {/*NAV SUPERIOR */}
       <nav >
         <div className="nav-content">
           <ul className="nav-links">
@@ -35,7 +35,7 @@ const NavBar = () => {
         </div>
       </nav>
 
-      {/* ===== NAV LATERAL ===== */}
+      {/* NAV LATERAL */}
       <nav className={`navbar-side ${isScrolled ? "visible" : ""}`}>
         <ul className="side-links">
           <li className="side-item" data-tooltip="Inicio">

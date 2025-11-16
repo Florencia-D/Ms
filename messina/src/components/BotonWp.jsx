@@ -1,6 +1,6 @@
 import React from "react";
 import { FaWhatsapp } from "react-icons/fa";
-import "../css/BotonWp.css"; // asegurate de tener este archivo
+import "../css/BotonWp.css"; 
 
 export default function BotonWp() {
   return (
