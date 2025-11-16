@@ -24,6 +24,8 @@ app.use(express.urlencoded({ extended: true })); // reemplaza bodyParser.urlenco
 
 // Rutas principales
 app.use("/api/productos", routes); // monta las rutas importadas en la ruta base /api
+import categoriasRoutes from "./routes/categoriasRoutes.js";
+app.use("/api/categorias", categoriasRoutes);
 
 // Endpoint de prueba DB
 app.get("/ping", (req, res) => {

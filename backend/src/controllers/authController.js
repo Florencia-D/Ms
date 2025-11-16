@@ -69,6 +69,7 @@ export const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
   try {
+    // Verificar que exista el usuario
     const [rows] = await pool.query("SELECT * FROM Usuarios WHERE Email = ?", [email]);
     if (rows.length === 0) {
       return res.status(404).json({ message: "Usuario no encontrado" });
@@ -83,17 +84,19 @@ export const forgotPassword = async (req, res) => {
       { expiresIn: "15m" }
     );
 
-    // Guardar el token temporal
+    // Guardar el token y fecha de expiración en la base
+    const expires = new Date(Date.now() + 15 * 60 * 1000); // 15 minutos
     await pool.query(
-      "UPDATE Usuarios SET reset_token = ?, reset_expires = ? WHERE id_usuario = ?",
-      [token, new Date(Date.now() + 15 * 60 * 1000), user.id_usuario]
+      "UPDATE Usuarios SET reset_token = ?, reset_token_exp = ? WHERE id_usuario = ?",
+      [token, expires, user.id_usuario]
     );
 
+    // Link de recuperación
     const resetLink = `${process.env.FRONTEND_URL}/reset-password/${token}`;
 
     // Enviar correo
     await transporter.sendMail({
-      from: `"Soporte" <${process.env.EMAIL_USER}>`,
+      from: `"Soporte Messina" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Recuperación de contraseña",
       html: `
@@ -118,18 +121,22 @@ export const resetPassword = async (req, res) => {
   const { password } = req.body;
 
   try {
-    // ❗ VALIDAR CON EL SECRET CORRECTO
+    // Validar token
     const decoded = jwt.verify(token, process.env.JWT_SECRET_RESET);
 
+    // Hashear la nueva contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Actualizar contraseña solo si token coincide y no expiró
     const [result] = await pool.query(
-      "UPDATE Usuarios SET Contrasenia = ?, reset_token = NULL, reset_expires = NULL WHERE id_usuario = ? AND reset_token = ?",
+      `UPDATE Usuarios 
+       SET Contrasenia = ?, reset_token = NULL, reset_token_exp = NULL 
+       WHERE id_usuario = ? AND reset_token = ? AND reset_token_exp > NOW()`,
       [hashedPassword, decoded.id, token]
     );
 
     if (result.affectedRows === 0) {
-      return res.status(400).json({ message: "Token inválido o ya utilizado" });
+      return res.status(400).json({ message: "Token inválido o expirado" });
     }
 
     res.json({ message: "Contraseña actualizada correctamente" });

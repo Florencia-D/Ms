@@ -1,3 +1,6 @@
+--  Base de datos: MESSINA
+
+drop database messina;
 
 CREATE DATABASE Messina;
 USE Messina;
@@ -14,6 +17,9 @@ CREATE TABLE Usuarios (
   Direccion VARCHAR(100),
   Contrasenia VARCHAR(100)
 );
+ALTER TABLE Usuarios
+ADD COLUMN reset_token VARCHAR(255) DEFAULT NULL,
+ADD COLUMN reset_token_exp DATETIME DEFAULT NULL;
 
 # ==============================
 # 2) CATEGORIA_PRODUCTOS
@@ -517,6 +523,17 @@ VALUES
  4,
  6),
 
+#('Mini PC Industrial Fanless',
+ #'Mini PC industrial fanless, bajo consumo y sin ventiladores, ideal para líneas de producción y cajas POS.',
+ #'Genérico',
+ #'MPC-FN01',
+ #'/img/productos/pcindustriales/mini-pc-fanless.jpg',
+ #'PCIND002',
+ #TRUE,
+ #520000.00,
+ #4,
+ #7),
+
 
 -- Contadoras de billetes
 ('Eltronic EI-190',
@@ -915,4 +932,52 @@ VALUES
  14500.00,
  8,
  5);
+
+-- Tintas y cables de alimentación/datos
+/*('Cinta entintada para impresora fiscal',
+ 'Cartucho/cinta entintada negra compatible con impresoras fiscales matriciales (Hasar/Epson).',
+ 'Genérico',
+ 'CINTA-FISCAL-NG',
+ '/img/productos/insumos/cinta-entintada-fiscal.jpg',
+ 'INS006',
+ TRUE,
+ 11000.00,
+ 8,
+ 6),
+
+('Cable USB para impresora térmica',
+ 'Cable USB-A a USB-B de alta calidad, compatible con impresoras POS e impresoras de etiquetas.',
+ 'Genérico',
+ 'USB-IMP-2M',
+ '/img/productos/insumos/cable-usb-impresora.jpg',
+ 'INS007',
+ TRUE,
+ 6000.00,
+ 8,
+ 7),
+
+('Cable RS-232 para impresora fiscal',
+ 'Cable serie DB9 para conexión RS-232 de controladores/impresoras fiscales.',
+ 'Genérico',
+ 'RS232-IMP-2M',
+ '/img/productos/insumos/cable-rs232-impresora.jpg',
+ 'INS008',
+ TRUE,
+ 8500.00,
+ 8,
+ 8),
+
+('Fuente 24V 2.5A para POS',
+ 'Fuente de alimentación 24V 2.5A con conector para impresoras térmicas POS.',
+ 'Genérico',
+ 'FUENTE-24V-2.5A',
+ '/img/productos/insumos/fuente-24v-25a.jpg',
+ 'INS009',
+ TRUE,
+ 23000.00,
+ 8,
+ 9);
+
+
+
 
