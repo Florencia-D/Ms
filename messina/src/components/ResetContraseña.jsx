@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 const ResetContraseña = ({ token, onClose }) => {
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
@@ -11,20 +10,12 @@ const ResetContraseña = ({ token, onClose }) => {
     setMessage("");
     setError("");
 
-    if (password !== confirmPassword) {
-      setError("Las contraseñas no coinciden.");
-      return;
-    }
-
     try {
-      const response = await fetch(
-        `http://localhost:8000/api/auth/reset-password/${token}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ password }),
-        }
-      );
+      const response = await fetch(`http://localhost:8000/api/auth/reset-password/${token}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
 
       const data = await response.json();
 
@@ -43,13 +34,9 @@ const ResetContraseña = ({ token, onClose }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="close-modal-btn" onClick={onClose}>
-          ✖
-        </button>
-
+        <button className="close-modal-btn" onClick={onClose}>✖</button>
         <div className="container">
           <div className="heading">Restablecer Contraseña</div>
-
           <form className="form" onSubmit={handleSubmit}>
             <input
               required
@@ -60,23 +47,10 @@ const ResetContraseña = ({ token, onClose }) => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <input
-              required
-              className="input"
-              type="password"
-              placeholder="Confirmar contraseña"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-
             {message && <span className="success-message">{message}</span>}
             {error && <span className="error-message">{error}</span>}
 
-            <input
-              className="login-button"
-              type="submit"
-              value="Actualizar contraseña"
-            />
+            <input className="login-button" type="submit" value="Actualizar contraseña" />
           </form>
         </div>
       </div>

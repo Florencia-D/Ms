@@ -26,7 +26,6 @@ import { AuthProvider, AuthContext } from "./context/AuthContext";
 import RecuperoContraseña from "./components/RecuperoContraseña";
 import ResetContraseña from "./components/ResetContraseña";
 import Header from './components/Header';
-import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 function AppContent() {
   const { showRecupero, closeRecuperoModal, showReset, closeResetModal, resetToken } = useContext(AuthContext);
@@ -49,7 +48,6 @@ function AppContent() {
             <Route path="/registro" element={<Register />} />
             <Route path="/producto/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
-             <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
           </Routes>
 
           {/* Botones flotantes */}
