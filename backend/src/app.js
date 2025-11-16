@@ -1,16 +1,13 @@
 // Aqui se guarda toda la configuracion del servidor
 require("dotenv").config(); // carga variables de entorno
 
-
 import dotenv from "dotenv";
 dotenv.config();
 
 
-
-
 const express = require("express");
 const cors = require("cors");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 const routes = require("./routes");
 
 // Conexión a la base de datos
@@ -26,7 +23,7 @@ app.use(express.json()); // reemplaza bodyParser.json()
 app.use(express.urlencoded({ extended: true })); // reemplaza bodyParser.urlencoded()
 
 // Rutas principales
-app.use("/api", routes); // monta las rutas importadas en la ruta base /api
+app.use("/api/productos", routes); // monta las rutas importadas en la ruta base /api
 
 // Endpoint de prueba DB
 app.get("/ping", (req, res) => {

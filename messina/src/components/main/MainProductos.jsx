@@ -12,6 +12,7 @@ import Header from "../Header";   // ruta según tu estructura
 
 const API_URL = "http://localhost:8000/api/productos";
 
+
 const normalizeImg = (raw) => {
   if (!raw) return "";
   const s = String(raw).trim();

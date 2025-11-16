@@ -106,38 +106,42 @@
   display: inline-block;
 }
 
+/* Dropdown usuario */
 .dropdown-menu {
   position: absolute;
-  top: 30px;
+  top: 40px;
   right: 0;
   background: white;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
   padding: 10px;
-  z-index: 10;
-}
-
-.logout-btn {
-  background-color: #ff6600;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 100%;
-}
-
-.logout-btn:hover {
-  background-color: #e05500;
+  min-width: 160px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 100;
 }
 
 .user-name {
-  margin: 0 0 8px 0;
-  font-weight: 600;
-  font-size: 14px;
-  color: #333;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
+
+.logout-btn {
+  width: 100%;
+  padding: 6px 0;
+  /* background: #dfdfdf; */
+  color: rgb(168, 168, 168);
+  /* border: none; */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(to bottom, #005598, #005598);
+    color: white;
+}
+
+
 
 
 
@@ -193,3 +197,22 @@
   }
 }
   
+
+.cart-warning {
+  position: absolute;
+  top: 35px; /* ajusta según el icono */
+  right: 0;
+  background-color: #f0f0f0;
+  color: #0e4792;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  animation: slideDown 0.3s ease-out;
+  z-index: 50;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
