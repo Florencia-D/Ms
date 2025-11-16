@@ -17,35 +17,17 @@ const Header = () => {
   const navigate = useNavigate();
   const menuRef = useRef(null);
 
-<<<<<<< HEAD
-  // Cerrar menú cuando se hace clic fuera
-=======
   // Cerrar menú al hacer clic fuera
->>>>>>> flor
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setShowMenu(false);
       }
     };
-<<<<<<< HEAD
-
-    if (showMenu) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [showMenu]);
-
-
-=======
     if (showMenu) document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showMenu]);
 
->>>>>>> flor
   const handleUserClick = () => {
     if (usuario) {
       setShowMenu(!showMenu);
@@ -82,30 +64,14 @@ const Header = () => {
 
       <div className="search-container">
         <div className="nav-search">
-<<<<<<< HEAD
-          {/* <input
-            type="text"
-            placeholder="Buscar producto"
-            onChange={(e) => onSearch && onSearch(e.target.value)}
-          />
-          
-          <FaSearch className="nav-icon orange" /> */}
-
-=======
           {/* Icono usuario */}
->>>>>>> flor
           <div className="user-menu">
             <FaUser
               className="nav-icon orange"
               onClick={handleUserClick}
               style={{ cursor: "pointer" }}
             />
-<<<<<<< HEAD
-
-            {usuario && showMenu && (
-=======
             {showMenu && (
->>>>>>> flor
               <div className="dropdown-menu" ref={menuRef}>
                 <p className="user-name">{usuario?.nombre || "Usuario"}</p>
                 {usuario && (
@@ -115,17 +81,8 @@ const Header = () => {
                 )}
               </div>
             )}
-
-
           </div>
 
-<<<<<<< HEAD
-          {/* Carrito */}
-
-          <Link to={cart}>
-            <FaShoppingCart className="nav-icon orange" />
-          </Link>
-=======
           {/* Icono carrito */}
           <div className="cart-container" style={{ position: "relative" }}>
             <FaShoppingCart
@@ -139,16 +96,10 @@ const Header = () => {
               </div>
             )}
           </div>
->>>>>>> flor
         </div>
-
-<<<<<<< HEAD
       </div>
 
-      {/* Modal de login */}
-=======
       {/* Modales */}
->>>>>>> flor
       {showLoginModal && (
         <LoginModal
           onClose={() => setShowLoginModal(false)}
@@ -168,8 +119,6 @@ const Header = () => {
           }}
         />
       )}
-
-
     </>
   );
 };

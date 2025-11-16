@@ -14,11 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-<<<<<<< HEAD
-// Ruta principal para probar conexión
-=======
 // Test de la base de datos
->>>>>>> flor
 app.get("/", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT 1");
@@ -28,20 +24,11 @@ app.get("/", async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-// Conectar las rutas
-app.use("/api", usuariosRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api", productosRoutes); 
-app.use("/empleados", empleadosRoutes);
-
-=======
 // Montar rutas
 app.use("/api/auth", authRoutes); 
 app.use("/api/usuarios", usuariosRoutes); 
 app.use("/api/productos", productosRoutes);
 app.use("/api/empleados", empleadosRoutes);
->>>>>>> flor
 
 // Iniciamos el servidor
 const PORT = process.env.PORT || 8000;
