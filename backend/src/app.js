@@ -1,31 +1,35 @@
-// Aqui se guarda toda la configuracion del servidor
 require("dotenv").config(); // carga variables de entorno
 
 import dotenv from "dotenv";
+import express from "express";
+import cors from "cors";
+import morgan from "morgan";
+import productosRoutes from "./routes/productosRoutes.js";
+import categoriasRoutes from "./routes/categoriasRoutes.js";
+import "./config/db.js"; // conectar DB
+
 dotenv.config();
 
 
 const express = require("express");
 const cors = require("cors");
-// const morgan = require("morgan");
 const routes = require("./routes");
 
-// Conexión a la base de datos
-require("./config/db");
 
 // Crear instancia de express
 const app = express();
 
 // Middlewares globales
-app.use(cors()); // habilita CORS
+app.use(cors()); 
 app.use(morgan("dev")); // logs HTTP
 app.use(express.json()); // reemplaza bodyParser.json()
 app.use(express.urlencoded({ extended: true })); // reemplaza bodyParser.urlencoded()
 
+
 // Rutas principales
-app.use("/api/productos", routes); // monta las rutas importadas en la ruta base /api
-import categoriasRoutes from "./routes/categoriasRoutes.js";
+app.use("/api/productos", routes); 
 app.use("/api/categorias", categoriasRoutes);
+
 
 // Endpoint de prueba DB
 app.get("/ping", (req, res) => {
@@ -36,8 +40,10 @@ app.get("/ping", (req, res) => {
   });
 });
 
+
 // Raíz
 app.get("/", (_req, res) => res.send("API Biblioteca OK"));
 
-// Exportar la app configurada
+
+
 module.exports = app;

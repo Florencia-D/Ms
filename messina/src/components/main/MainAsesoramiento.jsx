@@ -1,13 +1,5 @@
 
-import {
-  Receipt,
-  Scale,
-  LayoutDashboard,
-  Wrench,
-  GraduationCap,
-  ShieldCheck,
-  Headset,
-} from "lucide-react";
+import { Receipt, Scale, LayoutDashboard, Wrench, GraduationCap, ShieldCheck, Headset,} from "lucide-react";
 
 
 

@@ -1,4 +1,3 @@
-// src/controllers/categoriasController.js
 import pool from "../config/db.js";
 
 export const obtenerCategorias = async (req, res) => {

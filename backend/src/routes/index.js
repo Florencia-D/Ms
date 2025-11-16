@@ -1,5 +1,4 @@
 import express from "express";
-
 import usuariosRouter from "./usuariosRoutes.js";
 import authRoutes from "./authRoutes.js";
 import productosRoutes from "./productosRoutes.js";

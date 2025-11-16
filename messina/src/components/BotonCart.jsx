@@ -1,4 +1,4 @@
-// src/components/BotonCart.jsx
+
 import { useNavigate, useLocation } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
@@ -8,7 +8,7 @@ export default function BotonCart() {
   const navigate = useNavigate();
   const { usuario } = useAuth();
 
-  // Si ya está en /cart, no muestres el botón
+  // Si ya esta en /cart, no muestres el botón
   if (pathname === "/cart") return null;
 
   const handleClick = () => {

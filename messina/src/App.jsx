@@ -17,7 +17,6 @@ import BotonWp from "./components/BotonWp";
 import BotonCart from "./components/BotonCart"; 
 
 
-
 import { home, asesoramiento, servicioTecnico, productCard, register, productDetail, productos, contacto, quienesSomos } from "./routes/path";
 
 

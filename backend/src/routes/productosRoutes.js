@@ -1,14 +1,8 @@
 import express from "express";
-import {
-  obtenerProductos,
-  obtenerProductoPorId,
-  crearProducto,
-  actualizarProducto,
-  eliminarProducto,
-} from "../controllers/productosController.js";
+import {  obtenerProductos, obtenerProductoPorId, crearProducto, actualizarProducto, eliminarProducto,} from "../controllers/productosController.js";
 
 const router = express.Router();
-// productosRoutes.js
+
 router.get("/", obtenerProductos);
 router.get("/:id", obtenerProductoPorId);
 router.post("/", crearProducto);

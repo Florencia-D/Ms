@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { CheckCircle2 } from "lucide-react";
-import { useAuth } from "../context/AuthContext"; // 🔹 importamos contexto
-import LoginModal from "./LoginModal"; // 🔹 modal de login
+import { useAuth } from "../context/AuthContext"; 
+import LoginModal from "./LoginModal"; 
 
 const FALLBACK = "/img/placeholder-300x200.png";
 
@@ -13,21 +13,12 @@ const normalizeImg = (raw) => {
   return s.startsWith("/") ? s : `/${s}`;
 };
 
-export default function ProductCard({
-  id,
-  img,
-  name,
-  brand,
-  model,
-  sku,
-  price,
-  onAdd,
-}) {
+export default function ProductCard({ id, img, name, brand, model, sku, price, onAdd,}) {
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false); // 🔹 para abrir login
+  const [showLoginModal, setShowLoginModal] = useState(false); // para abrir login
 
-  const { usuario } = useAuth(); // 🔹 usuario logueado
+  const { usuario } = useAuth(); // usuario logueado
 
   const src = normalizeImg(img);
 
@@ -38,16 +29,7 @@ export default function ProductCard({
       return;
     }
 
-    const product = {
-      id,
-      img: src,
-      name,
-      brand,
-      model,
-      sku,
-      price,
-      quantity: qty,
-    };
+    const product = { id,img: src, name, brand,  model, sku, price,  quantity: qty, };
 
     if (onAdd) onAdd(product);
 

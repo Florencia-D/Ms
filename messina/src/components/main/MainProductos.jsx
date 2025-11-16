@@ -4,10 +4,6 @@ import { Filter, PackageSearch } from "lucide-react";
 import { useCart } from "../../store/cart.store.js";
 import ProductCard from "../ProductCard.jsx";
 import { mockCategories } from "../../data/products.js";
-import Header from "../Header";   // ruta según tu estructura
-
-
-
 
 
 const API_URL = "http://localhost:8000/api/productos";
@@ -115,7 +111,7 @@ export default function MainProductos() {
     );
   }
 
-  /* 💥 Error */
+  /*  Error */
   if (error) {
     return (
       <div className="bg-[#F4F5F7] min-h-[calc(100vh-96px)]">
@@ -128,8 +124,6 @@ export default function MainProductos() {
       </div>
     );
   }
-
-
 
 
   /*  Vista normal */
@@ -192,7 +186,7 @@ export default function MainProductos() {
           </div>
         </section>
 
-        {/* 🔹 Resultados + buscador */}
+        {/* Resultados + buscador */}
         <section className="bg-white rounded-2xl shadow-sm border border-[#E2E4EA] p-4 md:p-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -257,7 +251,7 @@ export default function MainProductos() {
   );
 }
 
-/* 🔹 Encabezado reutilizable */
+/*  Encabezado reutilizable */
 function HeaderProductos({ currentCategory }) {
   return (
     <header className="text-center space-y-2">

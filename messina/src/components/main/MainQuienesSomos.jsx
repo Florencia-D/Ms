@@ -1,7 +1,7 @@
 import React from "react";
 import "../../css/MainQuienesSomos.css";
 import { Link } from 'react-router-dom';
-import iconObjetivos from "../../assets/icon-objetivos.png"; // cambia por tu icono real
+import iconObjetivos from "../../assets/icon-objetivos.png";
 import iconValores from "../../assets/icon-valores.png";
 
 
@@ -50,15 +50,6 @@ const MainQuienesSomos = () => {
           </p>
         </div>
       </section>
-
-
-
-
-      
-
-
-
-
 
       {/* Sección Objetivos y Valores */}
         <h2 className="titulo-naranja">OBJETIVOS Y VALORES</h2>

@@ -19,31 +19,31 @@ export default function Contacto() {
   const validar = () => {
     const err = {};
 
-    // ✅ Nombre: obligatorio, mínimo 3 letras, solo texto
+    // Nombre: obligatorio, mínimo 3 letras, solo texto
     if (!form.nombre.trim()) {
       err.nombre = "Ingresá tu nombre completo";
     } else if (!/^[a-zA-ZÀ-ÿ\s]{3,40}$/.test(form.nombre)) {
       err.nombre = "El nombre solo puede contener letras y espacios";
     }
 
-    // ✅ Email: formato válido
+    // Email: formato válido
     if (!form.email.trim()) {
       err.email = "Ingresá tu correo electrónico";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       err.email = "El email no tiene un formato válido";
     }
 
-    // ✅ Teléfono: opcional, pero si se completa debe tener formato correcto
+    // Teléfono: opcional, pero si se completa debe tener formato correcto
     if (form.telefono.trim() && !/^\+?\d{7,15}$/.test(form.telefono)) {
       err.telefono = "El teléfono debe contener solo números (7 a 15 dígitos)";
     }
 
-    // ✅ Asunto: opcional, pero si se completa debe tener al menos 3 caracteres
+    //  Asunto: opcional, pero si se completa debe tener al menos 3 caracteres
     if (form.asunto.trim() && form.asunto.length < 3) {
       err.asunto = "El asunto es demasiado corto";
     }
 
-    // ✅ Mensaje: obligatorio, mínimo 10 caracteres
+    //  Mensaje: obligatorio, mínimo 10 caracteres
     if (!form.mensaje.trim()) {
       err.mensaje = "Por favor, escribí tu mensaje";
     } else if (form.mensaje.length < 10) {
